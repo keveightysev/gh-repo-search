@@ -18,8 +18,9 @@ const Search = () => {
       per_page: state.resultLimit,
       page: state.currentPage
     });
+    dispatch({ type: "FETCH_START" });
+    navigate("/results");
     try {
-      dispatch({ type: "FETCH_START" });
       const { data } = await get(
         `https://api.github.com/search/repositories?${query}`
       );
@@ -32,9 +33,9 @@ const Search = () => {
         }
       });
       setSearchTerm("");
-      navigate("/results");
     } catch (error) {
       console.log(error.response);
+      dispatch({ type: "FETCH_FAILURE" });
     }
   };
 

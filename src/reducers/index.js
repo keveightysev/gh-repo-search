@@ -15,7 +15,10 @@ export const repoSearchReducer = (state, action) => {
       return {
         ...state,
         isFetching: true,
-        error: false
+        error: false,
+        items: [],
+        currentPage: 1,
+        totalCount: 0
       };
     case "FETCH_SUCCESS":
       return {
@@ -30,6 +33,11 @@ export const repoSearchReducer = (state, action) => {
         ...state,
         isFetching: false,
         error: true
+      };
+    case "SET_LIMIT":
+      return {
+        ...state,
+        resultLimit: payload
       };
     default:
       return state;
