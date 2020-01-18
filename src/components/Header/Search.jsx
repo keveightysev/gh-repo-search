@@ -1,42 +1,17 @@
 import React, { useState } from "react";
-import { get } from "axios";
 import { navigate } from "@reach/router";
 
-import { useRepoSearchState, useRepoSearchDispatch } from "../../contexts";
-import { querify } from "../../utils";
+import { useRepoSearchDispatch } from "../../contexts";
 
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const state = useRepoSearchState();
   const dispatch = useRepoSearchDispatch();
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const query = querify({
-      q: `name:${searchTerm}`,
-      sort: "stars",
-      per_page: state.resultLimit,
-      page: state.currentPage
-    });
-    dispatch({ type: "FETCH_START" });
-    navigate("/results");
-    try {
-      const { data } = await get(
-        `https://api.github.com/search/repositories?${query}`
-      );
-      dispatch({
-        type: "FETCH_SUCCESS",
-        payload: {
-          searchTerm,
-          items: data.items,
-          totalCount: data.total_count
-        }
-      });
-      setSearchTerm("");
-    } catch (error) {
-      console.log(error.response);
-      dispatch({ type: "FETCH_FAILURE" });
-    }
+    dispatch({ type: "SET_SEARCH_TERM", payload: searchTerm });
+    navigate("/results/1");
+    setSearchTerm("");
   };
 
   return (
