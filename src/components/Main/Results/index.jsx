@@ -17,7 +17,7 @@ const Results = ({ page }) => {
     let didCancel = false;
     const fetch = async () => {
       const query = querify({
-        q: `name:${searchTerm}`,
+        q: `${searchTerm} in:name`,
         sort: "stars",
         per_page: resultLimit,
         page

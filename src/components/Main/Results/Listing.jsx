@@ -3,7 +3,7 @@ import React from "react";
 import { useRepoSearchState } from "../../../contexts";
 import ListingCard from "./ListingCard";
 
-const Listing = ({ page }) => {
+const Listing = () => {
   const { items } = useRepoSearchState();
 
   return (
