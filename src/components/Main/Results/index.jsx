@@ -36,6 +36,7 @@ const Results = ({ page }) => {
             }
           });
       } catch (error) {
+        console.log(error.response);
         navigate(`/error/${error.response?.status}`);
         dispatch({ type: "FETCH_FAILURE" });
       }

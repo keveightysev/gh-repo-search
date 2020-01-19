@@ -1,7 +1,6 @@
 import React from "react";
 
 const LanguageBar = ({ languages, size }) => {
-  console.log(languages);
   return (
     <>
       <p>Languages</p>

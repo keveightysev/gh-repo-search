@@ -8,19 +8,25 @@ import {
 import { Link } from "@reach/router";
 
 import { useRepoSearchState } from "../../../contexts";
+import { paginate } from "../../../utils";
 
 const Pagination = ({ page }) => {
   const [linkArray, setLinkArray] = useState([]);
+  const [shownLinks, setShownLinks] = useState([]);
   const { totalCount, resultLimit } = useRepoSearchState();
+
   useEffect(() => {
-    const results = Number(totalCount);
+    const results = Number(totalCount) > 1000 ? 1000 : Number(totalCount);
     const limit = Number(resultLimit);
-    let links = new Array(Math.ceil(results / limit));
+    const currentPage = Number(page);
+    const links = new Array(Math.ceil(results / limit));
     for (let i = 0; i < links.length; i += 1) {
       links[i] = i + 1;
     }
     setLinkArray(links);
-  }, [totalCount, resultLimit]);
+    setShownLinks(paginate(currentPage, links));
+  }, [totalCount, resultLimit, page]);
+
   return (
     linkArray.length > 1 && (
       <nav>
@@ -34,7 +40,7 @@ const Pagination = ({ page }) => {
             </Link>
           </>
         )}
-        {linkArray.map(el => {
+        {shownLinks.map(el => {
           return (
             <Link to={`../${el}`} key={el}>
               {el}
