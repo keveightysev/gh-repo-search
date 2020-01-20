@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Redirect, navigate } from "@reach/router";
-import { get } from "axios";
+import axios from "axios";
 
 import { querify } from "../../../utils";
 import { useRepoSearchState, useRepoSearchDispatch } from "../../../contexts";
@@ -26,7 +26,9 @@ const Results = ({ page }) => {
       try {
         const { data } =
           !didCancel &&
-          (await get(`https://api.github.com/search/repositories?${query}`));
+          (await axios.get(
+            `https://api.github.com/search/repositories?${query}`
+          ));
         !didCancel &&
           dispatch({
             type: "FETCH_SUCCESS",

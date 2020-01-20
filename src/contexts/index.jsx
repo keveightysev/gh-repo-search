@@ -6,11 +6,11 @@ const RepoSearchStateContext = createContext();
 
 const RepoSearchDispatchContext = createContext();
 
-export const RepoSearchProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(
-    repoSearchReducer,
-    initialRepoSearchState
-  );
+export const RepoSearchProvider = ({
+  children,
+  initialState = initialRepoSearchState
+}) => {
+  const [state, dispatch] = useReducer(repoSearchReducer, initialState);
 
   return (
     <RepoSearchStateContext.Provider value={state}>

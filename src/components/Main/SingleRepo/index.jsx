@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { get } from "axios";
+import axios from "axios";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import moment from "moment";
 
@@ -8,20 +8,29 @@ import LanguageBar from "./LanguageBar";
 import Loading from "../Loading";
 
 const SingleRepo = ({ id }) => {
-  const [repo, setRepo] = useState({ loaded: false });
+  const [repo, setRepo] = useState({ loaded: false, error: false });
 
   useEffect(() => {
     if (id) {
       const fetchData = async () => {
-        const { data } = await get(`https://api.github.com/repositories/${id}`);
-        const { data: languages } = await get(data.languages_url);
-        const { data: followers } = await get(data.owner.followers_url);
-        setRepo({
-          ...data,
-          languages,
-          owner: { ...data.owner, followers: followers.length },
-          loaded: true
-        });
+        try {
+          const { data } = await axios.get(
+            `https://api.github.com/repositories/${id}`
+          );
+          const { data: languages } = await axios.get(data.languages_url);
+          const { data: followers } = await axios.get(data.owner.followers_url);
+          setRepo({
+            ...data,
+            languages,
+            owner: { ...data.owner, followers: followers.length },
+            loaded: true
+          });
+        } catch (error) {
+          setRepo({
+            loaded: true,
+            error: true
+          });
+        }
       };
       fetchData();
     }
