@@ -1,8 +1,8 @@
 export const initialRepoSearchState = {
-  searchTerm: "",
-  resultLimit: 5,
+  searchTerm: "rainbow",
+  resultLimit: 20,
   currentPage: 1,
-  totalCount: 1,
+  totalCount: 0,
   items: [],
   isFetching: false,
   error: false
@@ -41,6 +41,11 @@ export const repoSearchReducer = (state, action) => {
       return {
         ...state,
         resultLimit: payload
+      };
+    case "SET_PAGE":
+      return {
+        ...state,
+        currentPage: payload
       };
     default:
       return state;

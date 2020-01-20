@@ -8,6 +8,7 @@ const LimitDropDown = () => {
 
   const handleChange = e => {
     dispatch({ type: "SET_LIMIT", payload: e.target.value });
+    e.target.blur();
   };
 
   return (

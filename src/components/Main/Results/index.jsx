@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { Redirect, navigate } from "@reach/router";
 import axios from "axios";
 
+import "../../../styles/Results.scss";
+
 import { querify } from "../../../utils";
 import { useRepoSearchState, useRepoSearchDispatch } from "../../../contexts";
 import Loading from "../Loading";
@@ -54,11 +56,11 @@ const Results = ({ page }) => {
   ) : !searchTerm ? (
     <Redirect to="/" noThrow />
   ) : (
-    <>
+    <main className="results">
       <ResultsHeader />
       <Listing />
       <Pagination page={page} />
-    </>
+    </main>
   );
 };
 

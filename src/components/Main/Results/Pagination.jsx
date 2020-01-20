@@ -7,13 +7,14 @@ import {
 } from "react-icons/fa";
 import { Link } from "@reach/router";
 
-import { useRepoSearchState } from "../../../contexts";
+import { useRepoSearchState, useRepoSearchDispatch } from "../../../contexts";
 import { paginate } from "../../../utils";
 
 const Pagination = ({ page }) => {
   const [linkArray, setLinkArray] = useState([]);
   const [shownLinks, setShownLinks] = useState([]);
   const { totalCount, resultLimit } = useRepoSearchState();
+  const dispatch = useRepoSearchDispatch();
 
   useEffect(() => {
     const results = Number(totalCount) > 1000 ? 1000 : Number(totalCount);
@@ -32,17 +33,32 @@ const Pagination = ({ page }) => {
       <nav>
         {page !== "1" && (
           <>
-            <Link to="../1">
+            <Link
+              to="../1"
+              onClick={() => dispatch({ type: "SET_PAGE", payload: 1 })}
+              className="no-border"
+            >
               <FaAngleDoubleLeft />
             </Link>
-            <Link to={`../${Number(page) - 1}`}>
+            <Link
+              to={`../${Number(page) - 1}`}
+              className="no-border"
+              onClick={() =>
+                dispatch({ type: "SET_PAGE", payload: Number(page) - 1 })
+              }
+            >
               <FaAngleLeft />
             </Link>
           </>
         )}
         {shownLinks.map(el => {
           return (
-            <Link to={`../${el}`} key={el}>
+            <Link
+              to={`../${el}`}
+              key={el}
+              className={el.toString() === page && "active"}
+              onClick={() => dispatch({ type: "SET_PAGE", payload: el })}
+            >
               {el}
             </Link>
           );
@@ -50,10 +66,25 @@ const Pagination = ({ page }) => {
         {linkArray[linkArray.length - 1] &&
         page !== linkArray[linkArray.length - 1].toString() ? (
           <>
-            <Link to={`../${Number(page) + 1}`}>
+            <Link
+              to={`../${Number(page) + 1}`}
+              onClick={() =>
+                dispatch({ type: "SET_PAGE", payload: Number(page) + 1 })
+              }
+              className="no-border"
+            >
               <FaAngleRight />
             </Link>
-            <Link to={`../${linkArray[linkArray.length - 1]}`}>
+            <Link
+              to={`../${linkArray[linkArray.length - 1]}`}
+              onClick={() =>
+                dispatch({
+                  type: "SET_PAGE",
+                  payload: linkArray[linkArray.length - 1]
+                })
+              }
+              className="no-border"
+            >
               <FaAngleDoubleRight />
             </Link>
           </>

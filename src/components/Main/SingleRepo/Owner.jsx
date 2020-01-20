@@ -1,16 +1,26 @@
 import React from "react";
-import { FaExternalLinkAlt } from "react-icons/fa";
+import { FaExternalLinkAlt, FaUsers } from "react-icons/fa";
+import { GoRepo } from "react-icons/go";
 
 const Owner = ({ owner }) => {
   return (
-    <div>
+    <section className="owner">
       <img src={owner?.avatar_url} alt="" />
-      <h3>{owner?.login}</h3>
-      <a href={owner?.url} target="_blank" rel="noreferrer noopener">
-        View Profile on GitHub <FaExternalLinkAlt />
-      </a>
-      <p>{owner?.followers} followers</p>
-    </div>
+      <div>
+        <h3>{owner?.login}</h3>
+        <a href={owner?.url} target="_blank" rel="noreferrer noopener">
+          View Profile on GitHub <FaExternalLinkAlt />
+        </a>
+        <p>
+          <FaUsers />
+          {owner?.followers} followers
+        </p>
+        <p>
+          <GoRepo />
+          {owner?.public_repos} repositories
+        </p>
+      </div>
+    </section>
   );
 };
 

@@ -7,11 +7,11 @@ const Listing = () => {
   const { items } = useRepoSearchState();
 
   return (
-    <div>
+    <section className="cards">
       {items.map(repo => {
         return <ListingCard key={repo.id} repo={repo} />;
       })}
-    </div>
+    </section>
   );
 };
 
