@@ -108,7 +108,7 @@ describe("Context/Reducer Tests", () => {
         )
       }
     );
-    expect(result.current.state.resultLimit).toBe(5);
+    expect(result.current.state.resultLimit).toBe(20);
 
     act(() =>
       result.current.dispatch({

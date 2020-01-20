@@ -1,5 +1,5 @@
 export const initialRepoSearchState = {
-  searchTerm: "rainbow",
+  searchTerm: "",
   resultLimit: 20,
   currentPage: 1,
   totalCount: 0,
