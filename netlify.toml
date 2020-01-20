@@ -5,5 +5,5 @@
 
 [build]
     command = "yarn build"
-    publish = "build /"
+    publish = "build/"
     functions = "functions/"
